@@ -4,10 +4,7 @@ import { ConfigContext, SizeType } from './config-provider';
 import Item from './Item';
 import toArray from './toArray';
 import './index.scss'
-
-function useFlexGapSupport() {
-    return true;
-}
+import useFlexGapSupport from './useFlexGapSupport';
 
 export interface Option {
   keepEmpty?: boolean;
@@ -23,7 +20,6 @@ export const SpaceContext = React.createContext({
 export type SpaceSize = SizeType | number;
 
 export interface SpaceProps extends React.HTMLAttributes<HTMLDivElement> {
-  prefixCls?: string;
   className?: string;
   style?: React.CSSProperties;
   size?: SpaceSize | [SpaceSize, SpaceSize];
@@ -52,7 +48,6 @@ const Space: React.FC<SpaceProps> = props => {
     className,
     children,
     direction = 'horizontal',
-    prefixCls: customizePrefixCls,
     split,
     style,
     wrap = false,
@@ -68,8 +63,7 @@ const Space: React.FC<SpaceProps> = props => {
       ),
     [size],
   );
-
-  const childNodes = toArray(children, { keepEmpty: false });
+  const childNodes = toArray(children, {keepEmpty: true});
 
   const mergedAlign = align === undefined && direction === 'horizontal' ? 'center' : align;
   const prefixCls = getPrefixCls('space');
@@ -126,7 +120,6 @@ const Space: React.FC<SpaceProps> = props => {
   if (wrap) {
     gapStyle.flexWrap = 'wrap';
 
-    // Patch for gap not support
     if (!supportFlexGap) {
       gapStyle.marginBottom = -verticalSize;
     }

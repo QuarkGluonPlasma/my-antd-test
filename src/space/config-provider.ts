@@ -12,7 +12,7 @@ export interface ConfigConsumerProps {
   }
 }
 
-const defaultGetPrefixCls = (suffixCls?: string) => {
+export const defaultGetPrefixCls = (suffixCls?: string) => {
   return suffixCls ? `ant-${suffixCls}` : 'ant';
 };
 

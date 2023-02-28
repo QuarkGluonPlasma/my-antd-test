@@ -28,3 +28,9 @@ $space-item-prefix-cls: #{$ant-prefix}-space-item;
     }
   }
 }
+
+.#{$space-prefix-cls} {
+  &-rtl {
+    direction: rtl;
+  }
+}
